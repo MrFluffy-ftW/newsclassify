@@ -84,7 +84,8 @@ class Summarize:
         #lowercasing
         paragraph=paragraph.lower()
         #Remove Stop Words
-        stop_words=set(stopwords.words('english'))
+        #stop_words=set(stopwords.words('english'))
+        stop_words = ""
         word_tokens = word_tokenize(paragraph)
         filtered_list = [w for w in word_tokens if not w in stop_words]
         

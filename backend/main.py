@@ -147,7 +147,7 @@ def fetcha_scrapped_news():
 
         else:
             
-            return jsonify({'title':"No Title For Now",'summary':"No Summary For Now",'date':"Date Unavialable",'category':"BUSINESS",'link':"No link Avialable"})
+            return jsonify({'title':"No Title For Now",'summary':"No Summary For Now",'date':"Date Unavailable",'category':"BUSINESS",'link':"No link Avialable"})
 
     else:
         row_dict = {}
@@ -170,7 +170,7 @@ def fetcha_scrapped_news():
             return jsonify({'error':0,'title':row_dict[0]['title'],'summary':row_dict[0]['summary'],'date':row_dict[0]['date'],'category':row_dict[0]['category'],'link':row_dict[0]['link']})
         else:
            
-            return jsonify({'title':"No Title For Now",'summary':"No Summary For Now",'date':"Date Unavialable",'category':change_category,'link':"No link Avialable"})
+            return jsonify({'title':"No Title For Now",'summary':"No Summary For Now",'date':"Date Unavailable",'category':change_category,'link':"No link Avialable"})
         
     
 @app.route('/Entertainment')

@@ -9,7 +9,7 @@ const ScrapedNepali = () => {
     link: "",
     date: "",
     summary: "",
-    category: "",
+    category: "BUSINESS",
   });
 
   useEffect(() => {
@@ -34,35 +34,35 @@ const ScrapedNepali = () => {
   const handleCatChange = (event) => {
     let next;
     let prev;
-    switch (scraped.category.toLowerCase()) {
-      case "business":
-        prev = "others";
-        next = "entertainment";
+    switch (scraped.category) {
+      case "BUSINESS":
+        prev = "OTHERS";
+        next = "ENTERTAINMENT";
         break;
 
-      case "entertainment":
-        prev = "business";
-        next = "politics";
+      case "ENTERTAINMENT":
+        prev = "BUSINESS";
+        next = "POLITICS";
         break;
 
-      case "politics":
-        prev = "entertainment";
-        next = "sport";
+      case "POLITICS":
+        prev = "ENTERTAINMENT";
+        next = "SPORT";
         break;
 
-      case "sport":
-        prev = "politics";
-        next = "tech";
+      case "SPORT":
+        prev = "POLITICS";
+        next = "TECH";
         break;
 
-      case "tech":
-        prev = "sport";
-        next = "others";
+      case "TECH":
+        prev = "SPORT";
+        next = "OTHERS";
         break;
 
-      case "others":
-        prev = "tech";
-        next = "business";
+      case "OTHERS":
+        prev = "TECH";
+        next = "BUSINESS";
         break;
 
       default:
@@ -71,7 +71,7 @@ const ScrapedNepali = () => {
     const category = event.target.innerText === "Top" ? prev : next;
     axios
       .post("/api/fetchScrape", {
-        changeCategory: category.toLocaleUpperCase(),
+        changeCategory: category,
       })
       .then((response) => {
         setScraped({

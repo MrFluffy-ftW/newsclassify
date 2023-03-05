@@ -153,6 +153,8 @@ def fetcha_scrapped_news():
         cur = con.cursor()
         con.row_factory = sql.Row
         change_category = request.json["changeCategory"]
+        
+        print(change_category)
     
         cur.execute("SELECT * FROM nepali_news WHERE category = ? ORDER BY confidence DESC", ([change_category]) )     
         fetch_row = cur.fetchall()

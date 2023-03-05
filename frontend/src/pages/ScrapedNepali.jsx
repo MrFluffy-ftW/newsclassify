@@ -34,7 +34,7 @@ const ScrapedNepali = () => {
   const handleCatChange = (event) => {
     let next;
     let prev;
-    switch (scraped.category) {
+    switch (scraped.category?.toUpperCase()) {
       case "BUSINESS":
         prev = "OTHERS";
         next = "ENTERTAINMENT";
@@ -66,9 +66,13 @@ const ScrapedNepali = () => {
         break;
 
       default:
+        prev = "BUSINESS";
+        next = "BUSINESS";
         break;
     }
-    const category = event.target.innerText === "Top" ? prev : next;
+
+    const category =
+      event.target.innerText === "Previous Category" ? prev : next;
     axios
       .post("/api/fetchScrape", {
         changeCategory: category,
@@ -83,7 +87,9 @@ const ScrapedNepali = () => {
         });
       })
       .catch((error) => {
-        console.log(error);
+        if (error) {
+          toast.error("No More error");
+        }
       });
   };
 

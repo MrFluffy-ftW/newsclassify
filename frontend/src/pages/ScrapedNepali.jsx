@@ -26,10 +26,19 @@ const ScrapedNepali = () => {
     });
   }, []);
 
-  const nextNews = () => {
-    axios
-      .post("/test", { category: scraped.category })
-      .then((response) => console.log(response));
+  const nextNews = (event) => {
+    const prev = "Previous News";
+    const next = "Next News";
+    const dest = event.target.innerText === prev ? prev : next;
+    if (dest === prev) {
+      axios
+        .post("/api/next_previous_news", { dest })
+        .then((response) => console.log(response));
+    } else {
+      axios
+        .post("/api/next_previous_news", { dest })
+        .then((response) => console.log(response));
+    }
   };
 
   const handleCatChange = (event) => {

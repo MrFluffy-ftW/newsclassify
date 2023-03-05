@@ -174,10 +174,12 @@ def fetcha_scrapped_news():
         
 @app.route('/api/next_previous_news',methods=['GET','POST'])
 def get_next_previous_news():
-        if request.json['submit_button'] == 'Next':
+    
+        change_news = request.json["dest"]
+        if change_news == 'Next News':
             next_item_index += 1
             return jsonify({'error':0,'title':row_dict[next_item_index]['title'],'summary':row_dict[next_item_index]['summary'],'date':row_dict[next_item_index]['date'],'category':row_dict[next_item_index]['category'],'link':row_dict[next_item_index]['link']})
-        if request.json['submit_button'] == 'Previous':
+        if change_news == 'Previous News':
             next_item_index -= 1
             return jsonify({'error':0,'title':row_dict[next_item_index]['title'],'summary':row_dict[next_item_index]['summary'],'date':row_dict[next_item_index]['date'],'category':row_dict[next_item_index]['category'],'link':row_dict[next_item_index]['link']})
 

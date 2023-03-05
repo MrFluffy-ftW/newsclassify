@@ -94,7 +94,7 @@ def fetch_scrapped_news():
         
         
         for row in fetch_row:
-            row_dict[index] = {'pk_categoryid':row[0],'title':row[1],'news':row[2],'source':row[3],'link':row[4],'category':row[5],'date':row[6],'confidence':row[7]}
+            row_dict[index] = {'pk_categoryid':row[0],'title':row[1],'news':row[2],'source':row[3],'link':row[4],'category':row[5],'date':row[6],'confidence':row[7],'summary':row[8]}
             index += 1
         
         #print(row_dict)
@@ -114,6 +114,30 @@ def fetch_scrapped_news():
             sentence_count = int(request.form['summarization_count'])
             news = Summarize(row_dict[next_item_index]['news']).sentence_number(sentence_count)
             return render_template('fetch_single.html',data=row_dict[next_item_index],news = news)
+        
+
+@app.route('/api/fetchScrape')
+def fetcha_scrapped_news():
+    global next_item_index
+    global row_dict
+    
+    row_dict = {}
+    con = sql.connect('database_scrapy.db')
+    cur = con.cursor()
+    con.row_factory = sql.Row
+
+    cur.execute("SELECT * FROM nepali_news ORDER BY confidence DESC")
+    fetch_row = cur.fetchall()
+    index = 0
+    
+    
+    for row in fetch_row:
+        row_dict[index] = {'pk_categoryid':row[0],'title':row[1],'news':row[2],'source':row[3],'link':row[4],'category':row[5],'date':row[6],'confidence':row[7],'summary':row[8]}
+        index += 1
+    
+    con.close()
+    #  return jsonify({'text':news,'summarized':summarized_news,'count':summarization_count,'prediction':prediction,'confidence':confidence_dict})
+    return jsonify({'title':row_dict[0]['title'],'summary':row_dict[0]['summary'],'date':row_dict[0]['date'],'category':row_dict[0]['category'],'link':row_dict[0]['link']})
 
         
     

@@ -133,7 +133,7 @@ def fetcha_scrapped_news():
         con = sql.connect('database_scrapy.db')
         cur = con.cursor()
         con.row_factory = sql.Row
-        cur.execute("SELECT * FROM nepali_news ORDER BY confidence DESC WHERE category =?", ["BUSINESS"])
+        cur.execute("SELECT * FROM nepali_news WHERE category =? ORDER BY confidence DESC ", (["BUSINESS"]))
         fetch_row = cur.fetchall()
         if len(fetch_row) != 0:
             index = 0
@@ -153,7 +153,7 @@ def fetcha_scrapped_news():
         con.row_factory = sql.Row
         change_category = request.json["changeCategory"]
     
-        cur.execute("SELECT * FROM nepali_news WHERE category = ? ORDER BY confidence DESC", [f'{change_category}'])
+        cur.execute("SELECT * FROM nepali_news WHERE category = ? ORDER BY confidence DESC", ([change_category]) )     
         fetch_row = cur.fetchall()
         if len(fetch_row) != 0:
             index = 0

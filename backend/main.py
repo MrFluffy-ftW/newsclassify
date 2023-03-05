@@ -141,9 +141,7 @@ def fetcha_scrapped_news():
             for row in fetch_row:
                 row_dict[index] = {'pk_categoryid':row[0],'title':row[1],'news':row[2],'source':row[3],'link':row[4],'category':row[5],'date':row[6],'confidence':row[7],'summary':row[8]}
                 index += 1
-            temp = {val: key for key, val in row_dict.items()}
-            res = {val: key for key, val in temp.items()}
-            row_dict = res
+            
             con.close()
             return jsonify({'error':0,'title':row_dict[0]['title'],'summary':row_dict[0]['summary'],'date':row_dict[0]['date'],'category':row_dict[0]['category'],'link':row_dict[0]['link']})
 
@@ -167,9 +165,6 @@ def fetcha_scrapped_news():
                 for row in fetch_row:
                     row_dict[index] = {'pk_categoryid':row[0],'title':row[1],'news':row[2],'source':row[3],'link':row[4],'category':row[5],'date':row[6],'confidence':row[7],'summary':row[8]}
                     index += 1
-                temp = {val: key for key, val in row_dict.items()}
-                res = {val: key for key, val in temp.items()}
-                row_dict = res
                 con.close()
                 return jsonify({'error':0,'title':row_dict[0]['title'],'summary':row_dict[0]['summary'],'date':row_dict[0]['date'],'category':row_dict[0]['category'],'link':row_dict[0]['link']})
             else:

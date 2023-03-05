@@ -133,16 +133,18 @@ def fetcha_scrapped_news():
         con = sql.connect('database_scrapy.db')
         cur = con.cursor()
         con.row_factory = sql.Row
-
-        cur.execute("SELECT * FROM nepali_news ORDER BY confidence DESC WHERE category =?", ["BUSINESS"])
-        fetch_row = cur.fetchall()
-        index = 0
-        for row in fetch_row:
-            row_dict[index] = {'pk_categoryid':row[0],'title':row[1],'news':row[2],'source':row[3],'link':row[4],'category':row[5],'date':row[6],'confidence':row[7],'summary':row[8]}
-            index += 1
-        
-        con.close()
-        return jsonify({'title':row_dict[0]['title'],'summary':row_dict[0]['summary'],'date':row_dict[0]['date'],'category':row_dict[0]['category'],'link':row_dict[0]['link']})
+        try:
+            cur.execute("SELECT * FROM nepali_news ORDER BY confidence DESC WHERE category =?", ["BUSINESS"])
+            fetch_row = cur.fetchall()
+            index = 0
+            for row in fetch_row:
+                row_dict[index] = {'pk_categoryid':row[0],'title':row[1],'news':row[2],'source':row[3],'link':row[4],'category':row[5],'date':row[6],'confidence':row[7],'summary':row[8]}
+                index += 1
+            
+            con.close()
+            return jsonify({'title':row_dict[0]['title'],'summary':row_dict[0]['summary'],'date':row_dict[0]['date'],'category':row_dict[0]['category'],'link':row_dict[0]['link']})
+        except:
+            return jsonify({''})
     else:
         row_dict = {}
         con = sql.connect('database_scrapy.db')

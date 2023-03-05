@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
+import toast, { Toaster } from "react-hot-toast";
+
 const ScrapedNepali = () => {
   const [scraped, setScraped] = useState({
     title: "",
@@ -62,25 +64,42 @@ const ScrapedNepali = () => {
         prev = "tech";
         next = "business";
         break;
+
+      default:
+        break;
     }
     const category = event.target.innerText === "Top" ? prev : next;
     axios
-      .post("/test", { changeCategory: category })
-      .then((response) => console.log(response));
+      .post("/api/fetchScrape", {
+        changeCategory: category.toLocaleUpperCase(),
+      })
+      .then((response) => {
+        setScraped({
+          title: response.data.title,
+          link: response.data.link,
+          date: response.data.date,
+          summary: response.data.summary,
+          category: response.data.category,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
     <>
       <div className="scraped-nepali">
-        {/* <div className="title-scraper">Nepali News Scraper</div> */}
+        <Toaster />
+        <div className="title-scraper">{scraped.category}</div>
         <div className="left">
           <div className="left-arrow-box">
-            <a className="cv-btn" onClick={handleCatChange}>
-              Top
-            </a>
-            <a className="cv-btn" onClick={handleCatChange}>
-              Bottom
-            </a>
+            <button className="cv-btn" onClick={handleCatChange}>
+              Previous Category
+            </button>
+            <button className="cv-btn" onClick={handleCatChange}>
+              Next Category
+            </button>
           </div>
         </div>
         <div className="right">
@@ -93,10 +112,10 @@ const ScrapedNepali = () => {
             </div>
           </div>
           <div className="bottom-arrow-box">
-            <a className="cv-btn">Previous</a>
-            <a className="cv-btn" onClick={nextNews}>
-              Next
-            </a>
+            <button className="cv-btn">Previous News</button>
+            <button className="cv-btn" onClick={nextNews}>
+              Next News
+            </button>
           </div>
         </div>
       </div>

@@ -142,9 +142,9 @@ def fetcha_scrapped_news():
                 index += 1
             
             con.close()
-            return jsonify({'title':row_dict[0]['title'],'summary':row_dict[0]['summary'],'date':row_dict[0]['date'],'category':row_dict[0]['category'],'link':row_dict[0]['link']})
+            return jsonify({'title':row_dict[0]['title'],'summary':row_dict[0]['summary'],'date':row_dict[0]['date'],'category':row_dict[0]['category'],'link':row_dict[0]['link'],'error':0})
         except:
-            return jsonify({'error_prompt':"No News in this Category For now."})
+            return jsonify({'error':1})
     else:
         row_dict = {}
         con = sql.connect('database_scrapy.db')
@@ -161,9 +161,9 @@ def fetcha_scrapped_news():
                 index += 1
             
             con.close()
-            return jsonify({'title':row_dict[0]['title'],'summary':row_dict[0]['summary'],'date':row_dict[0]['date'],'category':row_dict[0]['category'],'link':row_dict[0]['link']})
+            return jsonify({'title':row_dict[0]['title'],'summary':row_dict[0]['summary'],'date':row_dict[0]['date'],'category':row_dict[0]['category'],'link':row_dict[0]['link'],"error":1})
         except:
-            return jsonify({'error_prompt':"No News in this Category For now."})
+            return jsonify({'error':1})
     
 @app.route('/Entertainment')
 def scrapped_news_entertainment():

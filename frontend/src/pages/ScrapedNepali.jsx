@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 import toast, { Toaster } from "react-hot-toast";
+import SourceButton from "../components/SourceButton";
 
 const ScrapedNepali = () => {
   const [scraped, setScraped] = useState({
@@ -87,9 +88,7 @@ const ScrapedNepali = () => {
         });
       })
       .catch((error) => {
-        if (error) {
-          toast.error("No More error");
-        }
+        toast.error("No More Category");
       });
   };
 
@@ -113,8 +112,12 @@ const ScrapedNepali = () => {
             <div className="news-title">
               <h2>{scraped.title}</h2>
             </div>
+            <div className="news-date">{scraped.date}</div>
             <div className="news-desc">
               <p>{scraped.summary}</p>
+            </div>
+            <div className="news-link">
+              <SourceButton link={scraped.link} />
             </div>
           </div>
           <div className="bottom-arrow-box">

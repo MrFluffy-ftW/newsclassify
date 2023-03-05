@@ -149,7 +149,7 @@ def fetcha_scrapped_news():
             
             return jsonify({'title':"No Title For Now",'summary':"No Summary For Now",'date':"Date Unavailable",'category':"BUSINESS",'link':"No link Avialable"})
 
-    else:
+    elif request.json["changeCategory"] != {}:
         row_dict = {}
         con = sql.connect('database_scrapy.db')
         cur = con.cursor()
@@ -171,7 +171,15 @@ def fetcha_scrapped_news():
         else:
            
             return jsonify({'title':"No Title For Now",'summary':"No Summary For Now",'date':"Date Unavailable",'category':change_category,'link':"No link Avialable"})
-        
+    else:
+        change_news = request.json["dest"]
+        if change_news == 'Next News':
+            next_item_index += 1
+            return jsonify({'error':0,'title':row_dict[next_item_index]['title'],'summary':row_dict[next_item_index]['summary'],'date':row_dict[next_item_index]['date'],'category':row_dict[next_item_index]['category'],'link':row_dict[next_item_index]['link']})
+        if change_news == 'Previous News':
+            next_item_index -= 1
+            return jsonify({'error':0,'title':row_dict[next_item_index]['title'],'summary':row_dict[next_item_index]['summary'],'date':row_dict[next_item_index]['date'],'category':row_dict[next_item_index]['category'],'link':row_dict[next_item_index]['link']})
+
 @app.route('/api/next_previous_news',methods=['GET','POST'])
 def get_next_previous_news():
     

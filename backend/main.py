@@ -148,37 +148,37 @@ def fetcha_scrapped_news():
         else:
             
             return jsonify({'title':"No Title For Now",'summary':"No Summary For Now",'date':"Date Unavailable",'category':"BUSINESS",'link':"No link Avialable"})
-
-    elif request.json["changeCategory"] != {}:
-        row_dict = {}
-        con = sql.connect('database_scrapy.db')
-        cur = con.cursor()
-        con.row_factory = sql.Row
-        change_category = request.json["changeCategory"]
-        
-    
-        cur.execute("SELECT * FROM nepali_news WHERE category = ? ORDER BY confidence DESC", [change_category])
-        fetch_row = cur.fetchall()
-        if len(fetch_row) != 0:
-            index = 0
-            next_item_index = 0 
-            for row in fetch_row:
-                row_dict[index] = {'pk_categoryid':row[0],'title':row[1],'news':row[2],'source':row[3],'link':row[4],'category':row[5],'date':row[6],'confidence':row[7],'summary':row[8]}
-                index += 1
-            row
-            con.close()
-            return jsonify({'error':0,'title':row_dict[0]['title'],'summary':row_dict[0]['summary'],'date':row_dict[0]['date'],'category':row_dict[0]['category'],'link':row_dict[0]['link']})
-        else:
-           
-            return jsonify({'title':"No Title For Now",'summary':"No Summary For Now",'date':"Date Unavailable",'category':change_category,'link':"No link Avialable"})
     else:
-        change_news = request.json["dest"]
-        if change_news == 'Next News':
-            next_item_index += 1
-            return jsonify({'error':0,'title':row_dict[next_item_index]['title'],'summary':row_dict[next_item_index]['summary'],'date':row_dict[next_item_index]['date'],'category':row_dict[next_item_index]['category'],'link':row_dict[next_item_index]['link']})
-        if change_news == 'Previous News':
-            next_item_index -= 1
-            return jsonify({'error':0,'title':row_dict[next_item_index]['title'],'summary':row_dict[next_item_index]['summary'],'date':row_dict[next_item_index]['date'],'category':row_dict[next_item_index]['category'],'link':row_dict[next_item_index]['link']})
+        if request.json["changeCategory"] != "":
+            row_dict = {}
+            con = sql.connect('database_scrapy.db')
+            cur = con.cursor()
+            con.row_factory = sql.Row
+            change_category = request.json["changeCategory"]
+            
+        
+            cur.execute("SELECT * FROM nepali_news WHERE category = ? ORDER BY confidence DESC", [change_category])
+            fetch_row = cur.fetchall()
+            if len(fetch_row) != 0:
+                index = 0
+                next_item_index = 0 
+                for row in fetch_row:
+                    row_dict[index] = {'pk_categoryid':row[0],'title':row[1],'news':row[2],'source':row[3],'link':row[4],'category':row[5],'date':row[6],'confidence':row[7],'summary':row[8]}
+                    index += 1
+                
+                con.close()
+                return jsonify({'error':0,'title':row_dict[0]['title'],'summary':row_dict[0]['summary'],'date':row_dict[0]['date'],'category':row_dict[0]['category'],'link':row_dict[0]['link']})
+            else:
+            
+                return jsonify({'title':"No Title For Now",'summary':"No Summary For Now",'date':"Date Unavailable",'category':change_category,'link':"No link Avialable"})
+        else:
+            change_news = request.json["dest"]
+            if change_news == 'Next News':
+                next_item_index += 1
+                return jsonify({'error':0,'title':row_dict[next_item_index]['title'],'summary':row_dict[next_item_index]['summary'],'date':row_dict[next_item_index]['date'],'category':row_dict[next_item_index]['category'],'link':row_dict[next_item_index]['link']})
+            if change_news == 'Previous News':
+                next_item_index -= 1
+                return jsonify({'error':0,'title':row_dict[next_item_index]['title'],'summary':row_dict[next_item_index]['summary'],'date':row_dict[next_item_index]['date'],'category':row_dict[next_item_index]['category'],'link':row_dict[next_item_index]['link']})
 
 @app.route('/api/next_previous_news',methods=['GET','POST'])
 def get_next_previous_news():

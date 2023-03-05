@@ -128,7 +128,6 @@ def fetcha_scrapped_news():
     global next_item_index
     global row_dict
     
-
     if request.method != 'POST': 
         row_dict = {}
         con = sql.connect('database_scrapy.db')
@@ -138,6 +137,7 @@ def fetcha_scrapped_news():
         fetch_row = cur.fetchall()
         if len(fetch_row) != 0:
             index = 0
+            next_item_index = 0 
             for row in fetch_row:
                 row_dict[index] = {'pk_categoryid':row[0],'title':row[1],'news':row[2],'source':row[3],'link':row[4],'category':row[5],'date':row[6],'confidence':row[7],'summary':row[8]}
                 index += 1
@@ -161,7 +161,7 @@ def fetcha_scrapped_news():
         fetch_row = cur.fetchall()
         if len(fetch_row) != 0:
             index = 0
-            
+            next_item_index = 0 
             for row in fetch_row:
                 row_dict[index] = {'pk_categoryid':row[0],'title':row[1],'news':row[2],'source':row[3],'link':row[4],'category':row[5],'date':row[6],'confidence':row[7],'summary':row[8]}
                 index += 1
@@ -172,7 +172,15 @@ def fetcha_scrapped_news():
            
             return jsonify({'title':"No Title For Now",'summary':"No Summary For Now",'date':"Date Unavialable",'category':change_category,'link':"No link Avialable"})
         
-    
+@app.route('/api/next_previous_news',methods=['GET','POST'])
+def get_next_previous_news():
+        if request.json['submit_button'] == 'Next':
+            next_item_index += 1
+            return jsonify({'error':0,'title':row_dict[next_item_index]['title'],'summary':row_dict[next_item_index]['summary'],'date':row_dict[next_item_index]['date'],'category':row_dict[next_item_index]['category'],'link':row_dict[next_item_index]['link']})
+        if request.json['submit_button'] == 'Previous':
+            next_item_index -= 1
+            return jsonify({'error':0,'title':row_dict[next_item_index]['title'],'summary':row_dict[next_item_index]['summary'],'date':row_dict[next_item_index]['date'],'category':row_dict[next_item_index]['category'],'link':row_dict[next_item_index]['link']})
+
 @app.route('/Entertainment')
 def scrapped_news_entertainment():
     con = sql.connect('database_scrapy.db')

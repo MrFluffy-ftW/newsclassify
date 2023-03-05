@@ -14,6 +14,13 @@ row_dict_flag = None
 def home_page():
     return {"Hello":"World"}
 
+@app.route('/test',methods=['POST'])
+def testhere():
+    my_value = request.json['category']
+    print (my_value)
+    return my_value
+
+
 
 @app.route('/api/form', methods=['POST'])
 def handle_form_data():

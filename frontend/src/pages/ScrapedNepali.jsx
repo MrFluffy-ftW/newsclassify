@@ -26,18 +26,38 @@ const ScrapedNepali = () => {
     });
   }, []);
 
-  const nextNews = (event) => {
+  const nextNews = async (event) => {
     const prev = "Previous News";
     const next = "Next News";
     const dest = event.target.innerText === prev ? prev : next;
+
     if (dest === prev) {
-      axios
-        .post("/api/next_previous_news", { dest })
-        .then((response) => console.log(response));
+      await axios
+        .post("/api/fetchScrape", { dest, changeCategory: "" })
+        .then((response) =>
+          setScraped({
+            title: response.data.title,
+            link: response.data.link,
+            date: response.data.date,
+            summary: response.data.summary,
+            category: response.data.category,
+          })
+        )
+        .catch((error) => {
+          toast.error("Something Went Wrong");
+        });
     } else {
-      axios
-        .post("/api/next_previous_news", { dest })
-        .then((response) => console.log(response));
+      await axios
+        .post("/api/fetchScrape", { dest, changeCategory: "" })
+        .then((response) =>
+          setScraped({
+            title: response.data.title,
+            link: response.data.link,
+            date: response.data.date,
+            summary: response.data.summary,
+            category: response.data.category,
+          })
+        );
     }
   };
 
@@ -130,7 +150,9 @@ const ScrapedNepali = () => {
             </div>
           </div>
           <div className="bottom-arrow-box">
-            <button className="cv-btn">Previous News</button>
+            <button className="cv-btn" onClick={nextNews}>
+              Previous News
+            </button>
             <button className="cv-btn" onClick={nextNews}>
               Next News
             </button>

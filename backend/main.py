@@ -133,27 +133,29 @@ def fetcha_scrapped_news():
         con = sql.connect('database_scrapy.db')
         cur = con.cursor()
         con.row_factory = sql.Row
-        try:
-            cur.execute("SELECT * FROM nepali_news ORDER BY confidence DESC WHERE category =?", ["BUSINESS"])
-            fetch_row = cur.fetchall()
+        cur.execute("SELECT * FROM nepali_news ORDER BY confidence DESC WHERE category =?", ["BUSINESS"])
+        fetch_row = cur.fetchall()
+        if len(fetch_row) != 0:
             index = 0
             for row in fetch_row:
                 row_dict[index] = {'pk_categoryid':row[0],'title':row[1],'news':row[2],'source':row[3],'link':row[4],'category':row[5],'date':row[6],'confidence':row[7],'summary':row[8]}
                 index += 1
             
             con.close()
-            return jsonify({'title':row_dict[0]['title'],'summary':row_dict[0]['summary'],'date':row_dict[0]['date'],'category':row_dict[0]['category'],'link':row_dict[0]['link'],'error':0})
-        except:
-            return jsonify({'error':1})
+            return jsonify({'title':row_dict[0]['title'],'summary':row_dict[0]['summary'],'date':row_dict[0]['date'],'category':row_dict[0]['category'],'link':row_dict[0]['link']})
+        else:
+            return jsonify({'title':"No Title For Now",'summary':"No Summary For Now",'date':"Date Unavialable",'category':"Category Not Defined",'link':"No link Avialable"})
+
     else:
         row_dict = {}
         con = sql.connect('database_scrapy.db')
         cur = con.cursor()
         con.row_factory = sql.Row
         change_category = request.json["changeCategory"]
-        try:
-            cur.execute("SELECT * FROM nepali_news WHERE category = ? ORDER BY confidence DESC", [f'{change_category}'])
-            fetch_row = cur.fetchall()
+    
+        cur.execute("SELECT * FROM nepali_news WHERE category = ? ORDER BY confidence DESC", [f'{change_category}'])
+        fetch_row = cur.fetchall()
+        if len(fetch_row) != 0:
             index = 0
             
             for row in fetch_row:
@@ -161,9 +163,10 @@ def fetcha_scrapped_news():
                 index += 1
             
             con.close()
-            return jsonify({'title':row_dict[0]['title'],'summary':row_dict[0]['summary'],'date':row_dict[0]['date'],'category':row_dict[0]['category'],'link':row_dict[0]['link'],"error":1})
-        except:
-            return jsonify({'error':1})
+            return jsonify({'title':row_dict[0]['title'],'summary':row_dict[0]['summary'],'date':row_dict[0]['date'],'category':row_dict[0]['category'],'link':row_dict[0]['link']})
+        else:
+            return jsonify({'title':"No Title For Now",'summary':"No Summary For Now",'date':"Date Unavialable",'category':"Category Not Defined",'link':"No link Avialable"})
+        
     
 @app.route('/Entertainment')
 def scrapped_news_entertainment():

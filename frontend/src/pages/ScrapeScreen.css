@@ -28,6 +28,7 @@
     inset: 0;
     justify-content: center;
     top: 100px;
+    z-index: -10;
 }
 
 .choose-wrapper {

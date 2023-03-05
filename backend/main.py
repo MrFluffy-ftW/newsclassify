@@ -123,7 +123,7 @@ def fetch_scrapped_news():
             return render_template('fetch_single.html',data=row_dict[next_item_index],news = news)
         
 
-@app.route('/api/fetchScrape',methods=["POST"])
+@app.route('/api/fetchScrape',methods=['GET','POST'])
 def fetcha_scrapped_news():
     global next_item_index
     global row_dict
@@ -151,10 +151,9 @@ def fetcha_scrapped_news():
         cur = con.cursor()
         con.row_factory = sql.Row
         change_category = request.json["changeCategory"]
-        cur.execute("SELECT * FROM nepali_news ORDER BY confidence DESC WHERE category =?",[change_category])
+        cur.execute("SELECT * FROM nepali_news WHERE category = ? ORDER BY confidence DESC", [f'{change_category}'])
         fetch_row = cur.fetchall()
         index = 0
-        
         
         for row in fetch_row:
             row_dict[index] = {'pk_categoryid':row[0],'title':row[1],'news':row[2],'source':row[3],'link':row[4],'category':row[5],'date':row[6],'confidence':row[7],'summary':row[8]}

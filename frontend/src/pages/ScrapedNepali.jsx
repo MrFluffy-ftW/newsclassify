@@ -3,6 +3,7 @@ import axios from "axios";
 
 import toast, { Toaster } from "react-hot-toast";
 import SourceButton from "../components/SourceButton";
+import Clouds from "../components/Clouds";
 
 const ScrapedNepali = () => {
   const [scraped, setScraped] = useState({
@@ -57,7 +58,10 @@ const ScrapedNepali = () => {
             summary: response.data.summary,
             category: response.data.category,
           })
-        );
+        )
+        .catch((error) => {
+          toast.error("Something Went Wrong");
+        });
     }
   };
 
@@ -125,7 +129,6 @@ const ScrapedNepali = () => {
     <>
       <div className="scraped-nepali">
         <Toaster />
-        <div className="title-scraper">{scraped.category}</div>
         <div className="left">
           <div className="left-arrow-box">
             <button className="cv-btn" onClick={handleCatChange}>
@@ -138,6 +141,7 @@ const ScrapedNepali = () => {
         </div>
         <div className="right">
           <div className="news-box">
+            <div className="news-category">{scraped.category}</div>
             <div className="news-title">
               <h2>{scraped.title}</h2>
             </div>

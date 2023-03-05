@@ -141,9 +141,30 @@ def fetcha_scrapped_news():
             for row in fetch_row:
                 row_dict[index] = {'pk_categoryid':row[0],'title':row[1],'news':row[2],'source':row[3],'link':row[4],'category':row[5],'date':row[6],'confidence':row[7],'summary':row[8]}
                 index += 1
-            temp = {val: key for key, val in row_dict.items()}
-            res = {val: key for key, val in temp.items()}
-            row_dict = res
+                # Create a new dictionary to store the non-duplicate rows
+            new_row_dict = {}
+
+            # Create a set to keep track of the titles seen so far
+            titles_seen = set()
+
+            # Loop through the original row_dict and only add rows with unique titles to the new dictionary
+            for index, row in row_dict.items():
+                title = row['title']
+                if title not in titles_seen:
+                    new_row_dict[index] = row
+                    titles_seen.add(title)
+
+            # Update the original row_dict with the non-duplicate rows
+            row_dict = new_row_dict
+            # Create a new dictionary to store the reindexed rows
+            reindexed_dict = {}
+
+            # Loop through the rows in the row_dict and reindex them
+            for i, (index, row) in enumerate(row_dict.items()):
+                reindexed_dict[i] = row
+
+            # Update the original row_dict with the reindexed rows
+            row_dict = reindexed_dict
             con.close()
             return jsonify({'error':0,'title':row_dict[0]['title'],'summary':row_dict[0]['summary'],'date':row_dict[0]['date'],'category':row_dict[0]['category'],'link':row_dict[0]['link']})
 
@@ -167,9 +188,30 @@ def fetcha_scrapped_news():
                 for row in fetch_row:
                     row_dict[index] = {'pk_categoryid':row[0],'title':row[1],'news':row[2],'source':row[3],'link':row[4],'category':row[5],'date':row[6],'confidence':row[7],'summary':row[8]}
                     index += 1
-                temp = {val: key for key, val in row_dict.items()}
-                res = {val: key for key, val in temp.items()}
-                row_dict = res
+                # Create a new dictionary to store the non-duplicate rows
+                new_row_dict = {}
+
+                # Create a set to keep track of the titles seen so far
+                titles_seen = set()
+
+                # Loop through the original row_dict and only add rows with unique titles to the new dictionary
+                for index, row in row_dict.items():
+                    title = row['title']
+                    if title not in titles_seen:
+                        new_row_dict[index] = row
+                        titles_seen.add(title)
+
+                # Update the original row_dict with the non-duplicate rows
+                row_dict = new_row_dict
+                # Create a new dictionary to store the reindexed rows
+                reindexed_dict = {}
+
+                # Loop through the rows in the row_dict and reindex them
+                for i, (index, row) in enumerate(row_dict.items()):
+                    reindexed_dict[i] = row
+
+                # Update the original row_dict with the reindexed rows
+                row_dict = reindexed_dict
                 con.close()
                 return jsonify({'error':0,'title':row_dict[0]['title'],'summary':row_dict[0]['summary'],'date':row_dict[0]['date'],'category':row_dict[0]['category'],'link':row_dict[0]['link']})
             else:

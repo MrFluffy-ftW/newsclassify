@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Clouds from "./components/Clouds";
 import ClassifyScreen from "./pages/ClassifyScreen";
 
 import HomeScreen from "./pages/HomeScreen";
@@ -21,6 +22,7 @@ function App() {
         <Route path="/scraped-english" element={<ScrapedEnglish />} />
         <Route path="/scraped-nepali" element={<ScrapedNepali />} />
         <Route path="/test" element={<Test />} />
+        <Route path="/clouds" element={<Clouds />} />
       </Routes>
     </Router>
   );

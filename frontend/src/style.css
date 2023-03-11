@@ -140,6 +140,7 @@ nav .menu-btn,
     box-shadow: 5px 10px 30px rgba(2, 238, 255, 0.336);
     border-radius: 10px;
     color: #ffffff;
+    cursor: pointer;
 }
 
 .cv-btn:hover {
@@ -710,6 +711,7 @@ nav .menu-btn,
     border-radius: 16px;
     overflow: hidden;
     transition: all 0.2s;
+    cursor: pointer;
 }
 
 .button-source span {

@@ -1,4 +1,5 @@
 import React from "react";
+import "./Clouds.css";
 
 const Clouds = () => {
   return (

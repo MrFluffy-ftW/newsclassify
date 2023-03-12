@@ -14,7 +14,8 @@
 }
 
 .start-screen:hover> :not(:hover) {
-  filter: blur(5px);
+  opacity: .4;
+  transform: scale(0.9);
 }
 
 .start-card {
@@ -28,7 +29,7 @@
   border-radius: 17px;
   text-align: center;
   cursor: pointer;
-  transition: all 0.5s;
+  transition: all 0.35s;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -45,9 +46,6 @@
 }
 
 
-.start-card:active {
-  transform: scale(0.95) rotateZ(1.7deg);
-}
 
 .classify {
   background-image: url(../images/classify.jpeg);

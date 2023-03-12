@@ -5,8 +5,8 @@ const SourceButton = ({ link }) => {
     window.open(link, "_blank");
   };
   return (
-    <button class="cta" onClick={handleClick}>
-      <span class="hover-underline-animation"> Read More </span>
+    <button className="cta" onClick={handleClick}>
+      <span className="hover-underline-animation"> Read More </span>
       <svg
         viewBox="0 0 46 16"
         height="10"

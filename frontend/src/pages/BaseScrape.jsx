@@ -12,10 +12,10 @@ const ScrapedEnglish = () => {
   const [dark, setDark] = useState(false);
   const navigate = useNavigate();
 
-  console.log(dark);
   const handleClick = () => {
     navigate(-1);
   };
+
   return (
     <>
       <div className="scraper-wrapper">

@@ -13,6 +13,10 @@
   margin: 100px;
 }
 
+.start-screen:hover> :not(:hover) {
+  filter: blur(5px);
+}
+
 .start-card {
   box-sizing: border-box;
   width: 190px;
@@ -39,6 +43,7 @@
   border: 1px solid black;
   transform: scale(1.05);
 }
+
 
 .start-card:active {
   transform: scale(0.95) rotateZ(1.7deg);

@@ -27,7 +27,7 @@ const ScrapedEnglish = () => {
             />
           </div>
           <div className="top__title">
-            <h2>{!dark ? "English" : "Nepali"} Scraper</h2>
+            <h2>{!dark ? "English" : "Nepali"} News</h2>
           </div>
           <div className="top__alter">
             <Switch

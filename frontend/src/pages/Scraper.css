@@ -83,9 +83,25 @@
 }
 
 .news-summary {
-    overflow-y: scroll;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #ccc #eeecec;
     text-overflow: ellipsis;
     height: 250px;
+}
+
+.news-summary::-webkit-scrollbar {
+    width: 6px;
+}
+
+.news-summary::-webkit-scrollbar-thumb {
+    background-color: #b1b1b1;
+    border-radius: 10px;
+}
+
+.news-summary::-webkit-scrollbar-track {
+    background-color: #eeecec;
+    border-radius: 10px;
 }
 
 .news-source {

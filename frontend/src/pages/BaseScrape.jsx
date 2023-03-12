@@ -8,6 +8,8 @@ import Switch from "@mui/joy/Switch";
 import ScrapeEnglish from "./ScrapeEnglish";
 import ScrapeNepali from "./ScrapeNepali";
 
+import wall from "../images/wall.png";
+
 const ScrapedEnglish = () => {
   const [dark, setDark] = useState(false);
   const navigate = useNavigate();
@@ -19,6 +21,7 @@ const ScrapedEnglish = () => {
   return (
     <>
       <div className="scraper-wrapper">
+        <div className={`back ${!dark ? "eng-wall" : "nep-wall"}`}></div>
         <div className="top">
           <div className="top__back">
             <MdOutlineKeyboardArrowLeft

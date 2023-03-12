@@ -8,17 +8,18 @@ const Header = () => {
       <div className="name">
         <h1>
           <span>
-            SNS:
+            SN:
             <br />
-            Short And Sweet
+            Snap News
           </span>
         </h1>
         <p className="details" style={{ color: "black" }}>
-          Welcome to our SNS site, where we summarize long news articles and
-          provide you with a quick overview of the most important information.
-          In today's fast-paced world, it can be challenging to keep up with the
-          latest news and events. With so much information available, it's easy
-          to get overwhelmed and miss out on crucial stories.
+          Welcome to our Snap News site, where we summarize long news articles
+          and provide you with a quick overview of the most important
+          information. In today's fast-paced world, it can be challenging to
+          keep up with the latest news and events. With so much information
+          available, it's easy to get overwhelmed and miss out on crucial
+          stories.
         </p>
         <a href="/classify" className="cv-btn">
           Classify

@@ -66,6 +66,13 @@
         0 0 0 2px rgb(190, 190, 190),
         0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
     padding: 30px;
+    transition: all 0.3s ease-in-out;
+}
+
+.mid .mid__right .mid__right__box:hover {
+    box-shadow: inset 0 -3em 3em rgba(0, 0, 0, 0.1),
+        0 0 0 2px rgb(148, 208, 236),
+        0.3em 0.3em 1em rgba(56, 55, 55, 0.3);
 }
 
 .mid .mid__right .mid__right__box .news-date {

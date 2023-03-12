@@ -7,11 +7,7 @@ const Header = () => {
       <Navbar />
       <div className="name">
         <h1>
-          <span>
-            SN:
-            <br />
-            Snap News
-          </span>
+          <span>SN: Snap News</span>
         </h1>
         <p className="details" style={{ color: "black" }}>
           Welcome to our Snap News site, where we summarize long news articles

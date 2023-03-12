@@ -11,9 +11,13 @@ import {
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 
 import Switch from "@mui/joy/Switch";
+import ScrapeEnglish from "./ScrapeEnglish";
+import ScrapeNepali from "./ScrapeNepali";
 
 const ScrapedEnglish = () => {
   const [dark, setDark] = useState(false);
+
+  console.log(dark);
   const handleClick = () => {
     console.log("click");
   };
@@ -28,7 +32,7 @@ const ScrapedEnglish = () => {
             />
           </div>
           <div className="top__title">
-            <h2>English Scraper</h2>
+            <h2>{!dark ? "English" : "Nepali"} Scraper</h2>
           </div>
           <div className="top__alter">
             <Switch
@@ -41,7 +45,7 @@ const ScrapedEnglish = () => {
             />
           </div>
         </div>
-        <div className="mid">
+        {/* <div className="mid">
           <div className="mid__left">
             <div className="mid__left__top">
               <HiArrowLongUp className="arrows" onClick={handleClick} />
@@ -107,7 +111,8 @@ const ScrapedEnglish = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
+        {!dark ? <ScrapeEnglish /> : <ScrapeNepali />}
       </div>
     </>
   );

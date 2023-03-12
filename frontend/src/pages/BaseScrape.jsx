@@ -31,6 +31,7 @@ const ScrapedEnglish = () => {
           </div>
           <div className="top__alter">
             <Switch
+              variant="outlined"
               color={dark ? "danger" : "primary"}
               slotProps={{ input: { "aria-label": "dark mode" } }}
               startDecorator={"English"}

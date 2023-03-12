@@ -128,7 +128,6 @@ const ScrapedNepali = () => {
     <>
       <div className="scraped-nepali">
         <Toaster />
-
         <div className="left">
           <div className="left-arrow-box">
             <button className="cv-btn" onClick={handleCatChange}>

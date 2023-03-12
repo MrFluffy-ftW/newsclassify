@@ -87,7 +87,7 @@
 }
 
 .news-summary {
-    overflow: hidden;
+    overflow-y: scroll;
     text-overflow: ellipsis;
     height: 250px;
 }

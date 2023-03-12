@@ -80,6 +80,8 @@ class Scrape_Nepali_News:
             for description_text in description:
                 news_str += self.clean_text(description_text)
             source = (link.split('.')[0]).split('//')[1]
+            news_id = int((link.split('/')[7]).replace('.html',''))
+            
             date = url.split('/')[4] + '/' + url.split('/')[5] + '/' + url.split('/')[6]
             category,confidence = Classify(news_str).Predict_News()
             
@@ -88,19 +90,19 @@ class Scrape_Nepali_News:
             summary_count = int(news_sentence_count * (1/4))
             summary = Summarize(news_str).sentence_number(summary_count)
             confidence = max(confidence)
-            if confidence > 30:
-                self.scraped_dict[count] = {'link':link,'title':title,'news':news_str,'source':source,'category':category,'date':date,'confidence':confidence,'summary':summary}
+            if confidence > 70:
+                self.scraped_dict[count] = {'news_id':news_id,'link':link,'title':title,'news':news_str,'source':source,'category':category,'date':date,'confidence':confidence,'summary':summary}
             else:
-                self.scraped_dict[count] = {'link':link,'title':title,'news':news_str,'source':source,'category':'OTHERS','date':date,'confidence':confidence,'summary':summary}
+                self.scraped_dict[count] = {'news_id':news_id,'link':link,'title':title,'news':news_str,'source':source,'category':'OTHERS','date':date,'confidence':confidence,'summary':summary}
             count += 1
         
     def create_table(self):
-        table = " CREATE TABLE IF NOT EXISTS nepali_news(pk_categoryid INTEGER PRIMARY KEY AUTOINCREMENT,title VARCHAR(100), news VARCHAR(2000), source VARCHAR(100), link VARCHAR(100),category VARCHAR(15),date VARCHAR(25),confidence BIGINT,summary VARCHAR(2000))"
+        table = " CREATE TABLE IF NOT EXISTS nepali_news(news_id INTEGER(20) PRIMARY KEY ,title VARCHAR(100), news VARCHAR(2000), source VARCHAR(100), link VARCHAR(100),category VARCHAR(15),date VARCHAR(25),confidence BIGINT,summary VARCHAR(2000))"
         self.cursor_obj.execute(table)
     
     def update_table(self,key):
         try:
-            self.cursor_obj.execute("INSERT INTO nepali_news (title,news,source,link,category,date,confidence,summary) VALUES (?,?,?,?,?,?,?,?)",(self.scraped_dict[key]['title'],self.scraped_dict[key]['news'],self.scraped_dict[key]['source'],self.scraped_dict[key]['link'],self.scraped_dict[key]['category'],self.scraped_dict[key]['date'],self.scraped_dict[key]['confidence'],self.scraped_dict[key]['summary']) )
+            self.cursor_obj.execute("INSERT INTO nepali_news (news_id,title,news,source,link,category,date,confidence,summary) VALUES (?,?,?,?,?,?,?,?,?)",(self.scraped_dict[key]['news_id'],self.scraped_dict[key]['title'],self.scraped_dict[key]['news'],self.scraped_dict[key]['source'],self.scraped_dict[key]['link'],self.scraped_dict[key]['category'],self.scraped_dict[key]['date'],self.scraped_dict[key]['confidence'],self.scraped_dict[key]['summary']) )
             self.con.commit()
         except sql.Error as er:
             print(er)

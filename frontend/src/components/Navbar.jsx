@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import logo from "../images/Logoer.png";
+import logo from "../images/snap-news-logo2.png";
 
 const Navbar = () => {
   const [nav, setNav] = useState(false);

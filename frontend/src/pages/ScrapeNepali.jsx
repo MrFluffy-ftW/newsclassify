@@ -34,45 +34,43 @@ const ScrapeNepali = () => {
     });
   }, []);
 
-  const nextNews = async (event) => {
-    const prev = "Previous News";
-    const next = "Next News";
-    const dest = event.target.innerText === prev ? prev : next;
-
-    if (dest === prev) {
-      await axios
-        .post("/api/fetchScrape", { dest, changeCategory: "" })
-        .then((response) =>
-          setScraped({
-            title: response.data.title,
-            link: response.data.link,
-            date: response.data.date,
-            summary: response.data.summary,
-            category: response.data.category,
-          })
-        )
-        .catch((error) => {
-          toast.error("Something Went Wrong");
-        });
-    } else {
-      await axios
-        .post("/api/fetchScrape", { dest, changeCategory: "" })
-        .then((response) =>
-          setScraped({
-            title: response.data.title,
-            link: response.data.link,
-            date: response.data.date,
-            summary: response.data.summary,
-            category: response.data.category,
-          })
-        )
-        .catch((error) => {
-          toast.error("Something Went Wrong");
-        });
-    }
+  const nextNews = async () => {
+    await axios
+      .post("/api/fetchScrape", { dest: "Next News", changeCategory: "" })
+      .then((response) =>
+        setScraped({
+          title: response.data.title,
+          link: response.data.link,
+          date: response.data.date,
+          summary: response.data.summary,
+          category: response.data.category,
+        })
+      )
+      .catch((error) => {
+        console.log(error);
+        toast.error("No More Next News");
+      });
   };
 
-  const handleCatChange = (event) => {
+  const prevNews = async () => {
+    await axios
+      .post("/api/fetchScrape", { dest: "Previous News", changeCategory: "" })
+      .then((response) =>
+        setScraped({
+          title: response.data.title,
+          link: response.data.link,
+          date: response.data.date,
+          summary: response.data.summary,
+          category: response.data.category,
+        })
+      )
+      .catch((error) => {
+        console.log(error);
+        toast.error("No More Previous News");
+      });
+  };
+
+  const handleCatChange = (event, direction) => {
     let next;
     let prev;
     switch (scraped.category?.toUpperCase()) {
@@ -112,8 +110,7 @@ const ScrapeNepali = () => {
         break;
     }
 
-    const category =
-      event.target.innerText === "Previous Category" ? prev : next;
+    const category = direction === "prev" ? prev : next;
     axios
       .post("/api/fetchScrape", {
         changeCategory: category,
@@ -128,20 +125,29 @@ const ScrapeNepali = () => {
         });
       })
       .catch((error) => {
+        console.log(error);
         toast.error("No More Category");
       });
   };
+
   return (
     <div className="mid">
+      <Toaster />
       <div className="mid__left">
         <div className="mid__left__top">
-          <HiArrowLongUp className="arrows" />
+          <HiArrowLongUp
+            className="arrows"
+            onClick={(e) => handleCatChange(e, "prev")}
+          />
         </div>
         <div className="mid__left__mid">
           <h3>Category</h3>
         </div>
         <div className="mid__left__bottom">
-          <HiArrowLongDown className="arrows" />
+          <HiArrowLongDown
+            className="arrows"
+            onClick={(e) => handleCatChange(e, "next")}
+          />
         </div>
       </div>
       <div className="mid__right">
@@ -160,21 +166,13 @@ const ScrapeNepali = () => {
         </div>
         <div className="bottom">
           <div className="bottom__left">
-            <HiArrowLongLeft
-              className="arrows"
-              values="Previous News"
-              onClick={nextNews}
-            />
+            <HiArrowLongLeft className="arrows" onClick={prevNews} />
           </div>
           <div className="bottom__mid">
             <h3>News</h3>
           </div>
           <div className="bottom__right">
-            <HiArrowLongRight
-              className="arrows"
-              values="Next News"
-              onClick={nextNews}
-            />
+            <HiArrowLongRight className="arrows" onClick={nextNews} />
           </div>
         </div>
       </div>

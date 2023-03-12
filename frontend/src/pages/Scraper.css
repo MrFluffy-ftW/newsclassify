@@ -13,7 +13,8 @@
 }
 
 .top {
-    background-color: gray;
+    box-shadow: 5px 10px 30px rgba(0, 247, 255, 0.157);
+    background-color: #eeecec;
     width: 100%;
     height: 100px;
     display: flex;
@@ -82,7 +83,6 @@
     overflow: hidden;
     text-overflow: ellipsis;
     height: 250px;
-    background-color: red;
 }
 
 

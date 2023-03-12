@@ -1,14 +1,8 @@
 import React, { useState } from "react";
 import "./Scraper.css";
 
-import {
-  HiArrowLongDown,
-  HiArrowLongRight,
-  HiArrowLongLeft,
-  HiArrowLongUp,
-} from "react-icons/hi2";
-
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 import Switch from "@mui/joy/Switch";
 import ScrapeEnglish from "./ScrapeEnglish";
@@ -16,10 +10,11 @@ import ScrapeNepali from "./ScrapeNepali";
 
 const ScrapedEnglish = () => {
   const [dark, setDark] = useState(false);
+  const navigate = useNavigate();
 
   console.log(dark);
   const handleClick = () => {
-    console.log("click");
+    navigate(-1);
   };
   return (
     <>

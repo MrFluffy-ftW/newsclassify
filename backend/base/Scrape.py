@@ -118,4 +118,5 @@ class Scrape_Nepali_News:
         self.con.close()
     
     
-            
+class Scrape_English_News:
+    

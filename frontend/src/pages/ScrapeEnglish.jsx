@@ -24,7 +24,7 @@ const ScrapeEnglish = () => {
   });
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/fetchScrape").then((response) => {
+    axios.get("http://localhost:5000/api/fetchScrapeEnglish").then((response) => {
       console.log(response);
       setScraped({
         title: response.data.title,
@@ -38,7 +38,7 @@ const ScrapeEnglish = () => {
 
   const nextNews = async () => {
     await axios
-      .post("/api/fetchScrape", { dest: "Next News", changeCategory: "" })
+      .post("/api/fetchScrapeEnglish", { dest: "Next News", changeCategory: "" })
       .then((response) =>
         setScraped({
           title: response.data.title,
@@ -114,7 +114,7 @@ const ScrapeEnglish = () => {
 
     const category = direction === "prev" ? prev : next;
     axios
-      .post("/api/fetchScrape", {
+      .post("/api/fetchScrapeEnglish", {
         changeCategory: category,
       })
       .then((response) => {

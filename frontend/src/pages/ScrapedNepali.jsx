@@ -14,7 +14,7 @@ const ScrapedNepali = () => {
   });
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/fetchScrape").then((response) => {
+    axios.get("http://localhost:5000/api/fetchScrapeNepali").then((response) => {
       console.log(response);
       setScraped({
         title: response.data.title,
@@ -33,7 +33,7 @@ const ScrapedNepali = () => {
 
     if (dest === prev) {
       await axios
-        .post("/api/fetchScrape", { dest, changeCategory: "" })
+        .post("/api/fetchScrapeNepali", { dest, changeCategory: "" })
         .then((response) =>
           setScraped({
             title: response.data.title,
@@ -48,7 +48,7 @@ const ScrapedNepali = () => {
         });
     } else {
       await axios
-        .post("/api/fetchScrape", { dest, changeCategory: "" })
+        .post("/api/fetchScrapeNepali", { dest, changeCategory: "" })
         .then((response) =>
           setScraped({
             title: response.data.title,
@@ -107,7 +107,7 @@ const ScrapedNepali = () => {
     const category =
       event.target.innerText === "Previous Category" ? prev : next;
     axios
-      .post("/api/fetchScrape", {
+      .post("/api/fetchScrapeNepali", {
         changeCategory: category,
       })
       .then((response) => {

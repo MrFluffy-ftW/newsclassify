@@ -212,7 +212,7 @@ class Summarize:
             else:
                 for summarized_sentence in summarized:
                     summarized_str += summarized_sentence
-                    summarized_str += '| '
+                    summarized_str += ' | '
                     
             return summarized_str
                 

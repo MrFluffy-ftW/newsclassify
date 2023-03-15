@@ -4,6 +4,7 @@ import "./ClassifyScreen.css";
 import axios from "axios";
 import Loader from "../components/Loader";
 import toast, { Toaster } from "react-hot-toast";
+import ButtonClassify from "../components/ButtonClassify";
 
 const Form = () => {
   const [field1Value, setField1Value] = useState("");
@@ -48,7 +49,7 @@ const Form = () => {
     <>
       <Toaster />
       <Navbar />
-      <div className="wrapper">
+      <div className={`wrapper ${loading ? "load" : ""}`}>
         <div className="classify-screen">
           <h1>Classify & Summarize</h1>
           <form onSubmit={handleSubmit}>
@@ -75,17 +76,19 @@ const Form = () => {
               />
             </label>
             <br />
-            <button type="submit" className="classify-btn">
+            {/* <button type="submit" className="classify-btn">
               Classify & Summarize
-            </button>
+            </button> */}
+            <ButtonClassify />
           </form>
           {loading ? (
-            <Loader />
+            <Loader className="loader" />
           ) : (
             <div className={!result ? `classify-hidden` : `classify-active`}>
               <div className="classify-result">
                 <div>
-                  The News Is Classified as : <h3>{resp.prediction}</h3>
+                  The News Is Classified as :{" "}
+                  <h3 className="classify-title">{resp.prediction}</h3>
                 </div>
                 <div className="classify-summmary" id="cl-summary">
                   <h3>Summary:</h3>
@@ -103,6 +106,7 @@ const Form = () => {
                 >
                   Click to alter showing Confidence
                 </button>
+
                 <div className={!conf ? `classify-hidden` : `classify-active`}>
                   {JSON.stringify(resp.confidence)}
                 </div>

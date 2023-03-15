@@ -15,7 +15,7 @@ const StartScreen = () => {
           <Link to="/classify">
             <div className="start-card classify"></div>
           </Link>
-          <Link to="/summarize">
+          <Link to="/classify">
             <div className="start-card summarize"></div>
           </Link>
           <Link to="/scrape">
